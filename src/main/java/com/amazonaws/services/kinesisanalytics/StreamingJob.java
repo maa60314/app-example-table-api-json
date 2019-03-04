@@ -104,7 +104,7 @@ public class StreamingJob {
         // Add kinesis output1
         FlinkKinesisProducer<String> kinesisOutputSink = getKinesisOutputSink(outputStreamName, region, "onekeyh7fdg8ffgt");
         
-        // Add kinesis output2
+       /* // Add kinesis output2
         FlinkKinesisProducer<String> kinesisOutputSink2 = getKinesisOutputSink(outputStreamName, region, "twokeyh8fgdfdhh");
 
         // Add kinesis output3
@@ -176,7 +176,7 @@ public class StreamingJob {
         // Add kinesis output25
         FlinkKinesisProducer<String> kinesisOutputSink25 = getKinesisOutputSink(outputStreamName, region, "6iv473DXatdMkJM");
 
-        
+        */
         
         StreamTableEnvironment tableEnv = TableEnvironment.getTableEnvironment(env);
         
@@ -198,7 +198,7 @@ public class StreamingJob {
                 .window(Tumble.over("1.minutes").on("processingTimestamp").as("w"))
                 .groupBy("w, appName")
                 .select("'q1' as queryid, appName, w.start, w.end, version.min as minVersion, version.max as maxVersion, version.count as versionCount ");
-  
+  /*
         Table outputTable2 = inputTable
                 .window(Tumble.over("1.minutes").on("processingTimestamp").as("w"))
                 .groupBy("w, appName")
@@ -318,7 +318,7 @@ public class StreamingJob {
                 .window(Tumble.over("1.minutes").on("processingTimestamp").as("w"))
                 .groupBy("w, appName")
                 .select("'q25' as queryid, appName, w.start, w.end, version.min as minVersion, version.max as maxVersion, version.count as versionCount ");
-
+			*/
         
         
         //write input to log4j sink for debugging
@@ -335,7 +335,7 @@ public class StreamingJob {
         //outputTable.writeToSink(new KinesisTableSink(kinesisOutputSink));
         
         KinesisTableSink mySink = new KinesisTableSink(kinesisOutputSink);
-        KinesisTableSink mySink2 = new KinesisTableSink(kinesisOutputSink2);
+       /* KinesisTableSink mySink2 = new KinesisTableSink(kinesisOutputSink2);
         KinesisTableSink mySink3 = new KinesisTableSink(kinesisOutputSink3);
         KinesisTableSink mySink4 = new KinesisTableSink(kinesisOutputSink4);
         KinesisTableSink mySink5 = new KinesisTableSink(kinesisOutputSink5);
@@ -359,9 +359,10 @@ public class StreamingJob {
         KinesisTableSink mySink23 = new KinesisTableSink(kinesisOutputSink23);
         KinesisTableSink mySink24 = new KinesisTableSink(kinesisOutputSink24);
         KinesisTableSink mySink25 = new KinesisTableSink(kinesisOutputSink25);
+        */
         
         outputTable.writeToSink(mySink);
-        outputTable2.writeToSink(mySink2);
+       /* outputTable2.writeToSink(mySink2);
         outputTable3.writeToSink(mySink3);
         outputTable4.writeToSink(mySink4);
         outputTable5.writeToSink(mySink5);
@@ -385,6 +386,7 @@ public class StreamingJob {
         outputTable23.writeToSink(mySink23);
         outputTable24.writeToSink(mySink24);
         outputTable25.writeToSink(mySink25);
+        */
         
 
         env.execute();
